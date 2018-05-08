@@ -34,7 +34,7 @@ Reason: Electron is distributed prebuilt with a specific node version. Native pa
 
 Steps:
 ======
-1. Install lastest Node.js (7.2.0) from https://nodejs.org/en/
+1. Install lastest Node.js (8.11.1) from https://nodejs.org/en/
 2. Update NPM to latest `npm install -g npm@latest`
 3. Make sure you have the latest `rtmdx` repository commit
 4. If you don't have it, install Visual Studio 2015 Community Edition
