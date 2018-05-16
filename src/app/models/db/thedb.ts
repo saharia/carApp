@@ -6,7 +6,7 @@ import * as path from 'path';
 //const Database = window.require('sqlite3').verbose();
 //import { Settings } from './settings';
 
-const Settings = { dbFolder: 'database' };
+const Settings = { dbFolder: 'database', sqlFolder: 'sql' };
 const Database = window.require('sqlite3').verbose();
 
 export interface IDbResult {
@@ -197,26 +197,31 @@ export class TheDb {
     public static createDb(dbPath: string): Promise<string> {
         dbPath += path.extname(dbPath) === '.db' ? '' : '.db';
 
-        console.log('Creating  databae: ', dbPath);
-
         const dataPath = path.join(Settings.dbFolder, `database.init.json`);
-        const schemaPath = path.join(Settings.dbFolder, `database.db.sql`);
-        //const schema = fs.readFileSync(schemaPath, { encoding: 'utf8' });
+        const schemaPath = path.join(Settings.sqlFolder, `basic.sql`);
+        const schema = fs.readFileSync(schemaPath, { encoding: 'utf8' });
 
         // Create data directory in userdata folder
         if (!fs.existsSync(path.join(dbPath, '..'))) {
-            fs.mkdirSync(path.join(dbPath, '..'));
+          console.log('Creating  databae: ', dbPath);
+          fs.mkdirSync(path.join(dbPath, '..'));
         }
-
-        return TheDb.getDb(dbPath)
-            //.then(() => TheDb.exec(schema))
-            //.then(() => TheDb.setPragmaForeignKeys(true))
-            //.then(() => TheDb.importJson(dataPath, false))
-            .then(TheDb.setPragmaVersion)
-            .then(() => {
-                console.log('Database created.');
-                return dbPath;
-            });
+        if (!fs.existsSync(dbPath)) {
+          return TheDb.getDb(dbPath)
+              .then(() => TheDb.exec(schema))
+              //.then(() => TheDb.setPragmaForeignKeys(true))
+              //.then(() => TheDb.importJson(dataPath, false))
+              .then(TheDb.setPragmaVersion)
+              .then(() => {
+                  console.log('Database created.');
+                  return dbPath;
+              });
+         } else {
+           return new Promise<string>((resolve, reject) => {
+             resolve();
+           });
+           //return resolve();//TheDb.updateDb(dbPath);
+         }
     }
 
     public static openDb(dbPath: string): Promise<void> {

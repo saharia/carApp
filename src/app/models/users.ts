@@ -13,31 +13,31 @@ export class Users {
 
   update (params) {
     let sql = "UPDATE USERS SET name = ?, age = ?, address = ? WHERE id = ?";
-    TheDb.update(sql, params);
-    return true; 
+    return TheDb.update(sql, params);
   }
 
   deleteById (id) {
     let sql = "UPDATE USERS SET is_active = 0 WHERE id = ?";
-    TheDb.update(sql, [id]);
-    return true; 
+    return TheDb.update(sql, [id]);
   }
 
   fetchById (id) {
     let sql = "SELECT name, age, address FROM USERS WHERE is_active = 1 AND id = " + id;
-    TheDb.db.run(sql);
-    return true; 
+    return TheDb.db.run(sql);
   }
 
   fetchALL (id) {
     let sql = "SELECT name, age, address FROM USERS";
-    TheDb.db.run(sql);
-    return true; 
+    return TheDb.db.run(sql);
   }
 
   fetchActiveUsers (id) {
     let sql = "SELECT name, age, address FROM USERS WHERE is_active = 1";
-    TheDb.db.run(sql);
-    return true; 
+    return TheDb.db.run(sql);
+  }
+
+  checkLogin (params) {
+    let sql = "SELECT * FROM USERS WHERE is_active = 1 AND (email = '" + params.email + "' or username = '" + params.email + "') AND password";
+    return TheDb.db.run(sql);
   }
 }

@@ -19,16 +19,16 @@
     <div class="login__block__body">
     	<form #userRegistrationForm="ngForm" (ngSubmit)="onSubmit">
         <div class="form-group">
-            <input type="text" class="form-control text-center validate" name="first_name" placeholder="Name">
-            <label data-error="Required field!">Username</label>
+            <input type="text" class="form-control text-center validate" name="first_name" #firstName="ngModel" [(ngModel)]="user.firstName" placeholder="Name" required>
+            <label data-error="Required field!"></label>
         </div>
 
         <div class="form-group form-group--centered">
-            <input type="text" class="form-control text-center" placeholder="Email Address">
+            <input type="text" class="form-control text-center validate" #email="ngModel" [(ngModel)]="user.email" placeholder="Email Address">
         </div>
 
         <div class="form-group form-group--centered">
-            <input type="password" class="form-control text-center" placeholder="Password">
+            <input type="password" class="form-control text-center validate" #password="ngModel" [(ngModel)]="user.password" placeholder="Password">
         </div>
 
         <div class="form-group">

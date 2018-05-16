@@ -15,7 +15,7 @@ import { appRoutes } from './routes';
 
 import { TheDb } from './models/db/thedb';
 
-TheDb.createDb('test');
+TheDb.createDb('database/test');
 
 
 @NgModule({
