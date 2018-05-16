@@ -1,8 +1,13 @@
-import * as fs from 'fs';
+//import * as fs from 'fs';
+const fs = window.require('fs');
 import * as path from 'path';
 
-import { Database } from 'sqlite3';
-import { Settings } from './settings';
+//import { Database } from 'sqlite3';
+//const Database = window.require('sqlite3').verbose();
+//import { Settings } from './settings';
+
+const Settings = { dbFolder: 'database' };
+const Database = window.require('sqlite3').verbose();
 
 export interface IDbResult {
     changes: number;
@@ -17,7 +22,7 @@ export interface IDbResult {
  */
 export class TheDb {
     private static readonly version = 1;
-    public static db: Database;
+    public static db;
 
     public static selectOne(sql: string, values: {}): Promise<{}> {
         return new Promise<{}>((resolve, reject) => {
@@ -196,7 +201,7 @@ export class TheDb {
 
         const dataPath = path.join(Settings.dbFolder, `database.init.json`);
         const schemaPath = path.join(Settings.dbFolder, `database.db.sql`);
-        const schema = fs.readFileSync(schemaPath, { encoding: 'utf8' });
+        //const schema = fs.readFileSync(schemaPath, { encoding: 'utf8' });
 
         // Create data directory in userdata folder
         if (!fs.existsSync(path.join(dbPath, '..'))) {
@@ -204,9 +209,9 @@ export class TheDb {
         }
 
         return TheDb.getDb(dbPath)
-            .then(() => TheDb.exec(schema))
-            .then(() => TheDb.setPragmaForeignKeys(true))
-            .then(() => TheDb.importJson(dataPath, false))
+            //.then(() => TheDb.exec(schema))
+            //.then(() => TheDb.setPragmaForeignKeys(true))
+            //.then(() => TheDb.importJson(dataPath, false))
             .then(TheDb.setPragmaVersion)
             .then(() => {
                 console.log('Database created.');
@@ -246,7 +251,7 @@ export class TheDb {
         return TheDb.closeDb()
             .then(() => {
                 return new Promise<void>((resolve, reject) => {
-                    const db = new Database(dbPath, (err) => {
+                    const db = new Database.Database(dbPath, (err) => {
                         if (err) {
                             reject(err);
                         } else {

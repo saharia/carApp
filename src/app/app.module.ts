@@ -13,6 +13,10 @@ import { HomeComponent } from './home/home.component';
 
 import { appRoutes } from './routes';
 
+import { TheDb } from './models/db/thedb';
+
+TheDb.createDb('test');
+
 
 @NgModule({
   declarations: [
