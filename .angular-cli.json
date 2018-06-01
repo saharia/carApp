@@ -31,6 +31,7 @@
       	"themes/js/bootstrap/dist/js/bootstrap.min.js",
       	"themes/js/jquery.scrollbar/jquery.scrollbar.min.js",
       	"themes/js/jquery-scrollLock/jquery-scrollLock.min.js",
+        "themes/js/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js",
       	"themes/js/app.min.js"
       ],
       "environmentSource": "environments/environment.ts",

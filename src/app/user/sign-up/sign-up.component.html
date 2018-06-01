@@ -1,5 +1,5 @@
 <!-- Register -->
-<div class="login__block" id="l-register">
+<div class="login__block" id="l-register" style="text-align: left;">
     <div class="login__block__header">
         <i class="zmdi zmdi-account-circle"></i>
         Create an account
@@ -19,16 +19,23 @@
     <div class="login__block__body">
     	<form #userRegistrationForm="ngForm" (ngSubmit)="onSubmit">
         <div class="form-group">
-            <input type="text" class="form-control text-center validate" name="first_name" #firstName="ngModel" [(ngModel)]="user.firstName" placeholder="Name" required>
-            <label data-error="Required field!"></label>
+          <label>First name</label>
+          <input type="text" class="form-control validate" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" placeholder="" required>
+          <i *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="form-group__bar"></i>
+          <span *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-alert alert-error">First name is required!</span>
+        </div>
+        <div class="form-group form-group--centered">
+          <label>Email</label>
+          <input type="text" class="form-control validate" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="" required>
+          <i *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="form-group__bar"></i>
+          <span *ngIf="email.invalid && (email.dirty || email.touched)" class="text-alert alert-error">Email is required!</span>
         </div>
 
         <div class="form-group form-group--centered">
-            <input type="text" class="form-control text-center validate" #email="ngModel" [(ngModel)]="user.email" placeholder="Email Address">
-        </div>
-
-        <div class="form-group form-group--centered">
-            <input type="password" class="form-control text-center validate" #password="ngModel" [(ngModel)]="user.password" placeholder="Password">
+          <label>Password</label>
+          <input type="password" class="form-control validate" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="" required>
+          <i *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="form-group__bar"></i>
+          <span *ngIf="password.invalid && (password.dirty || password.touched)" class="text-alert alert-error">Password is required!</span>
         </div>
 
         <div class="form-group">
@@ -38,7 +45,8 @@
                 <span class="custom-control-description">Accept the license agreement</span>
             </label>
         </div>
-      </form>  
-        <a href="index-2.html" class="btn btn--icon login__block__btn"><i class="zmdi zmdi-plus"></i></a>
+      </form>
+        <button type="button" [disabled]="!userRegistrationForm.valid" class="btn btn-light btn-block" (click)="onSubmit($event)">Signup</button>
+        <!-- <a href="javascript:;" class="btn btn--icon login__block__btn" (click)="onSubmit($event)"><i class="zmdi zmdi-plus"></i></a> -->
     </div>
 </div>

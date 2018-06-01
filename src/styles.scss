@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-input.ng-invalid.ng-dirty {
-	border-bottom-color: #e91e63 !important;
-	box-shadow: 0 1px 0 0 #e91e63 !important;
+input.ng-invalid.ng-touched {
+	/* border-bottom-color: #e91e63 !important;
+	box-shadow: 0 1px 0 0 #e91e63 !important; */
+  border-bottom-color: #dbd70f;
+}
+.alert-error {
+  position: absolute;
+}
+.text-alert {
+  color: #dbd70f !important;
 }
