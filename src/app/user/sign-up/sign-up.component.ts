@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user.model';
+import { Users } from '../../models/users';
 declare var customJS: any;
 @Component({
   selector: 'app-sign-up',
@@ -7,11 +7,11 @@ declare var customJS: any;
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  public user: User;
+  public user: Users;
   notifyObj: any;
   constructor() { 
     this.notifyObj = new customJS();
-    this.user = new User();
+    this.user = new Users();
   }
 
   ngOnInit() {
@@ -19,8 +19,9 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(event) {
-     console.log(this.notifyObj)
+    const params = { first_name: this.user.firstName, email: this.user.email, password: this.user.password };
      this.notifyObj.notify('bottom', 'left', '', 'danger', 'animated fadeInUp', 'animated fadeOutDown', 'Email already exists');
+     this.user.insert(params);
   }
 
 }

@@ -1,12 +1,17 @@
 import { TheDb } from './db/thedb';
 
 export class Users {
+  firstName: string;
+  email: string;
+  password: string;
+
   constructor () {
 
   }
 
   insert (params) {
-    let sql = "INSERT INTO USERS (name, age, address) VALUES (?,?,?)";
+    console.log(params)
+    let sql = "INSERT INTO users (first_name, email, password) VALUES (?,?,?)";
     TheDb.insert(sql, params);
     return true;
   }

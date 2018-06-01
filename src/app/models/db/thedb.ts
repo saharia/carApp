@@ -24,6 +24,10 @@ export class TheDb {
     private static readonly version = 1;
     public static db;
 
+    constructor () {
+      TheDb.db = TheDb.getDb("database/test");
+    }
+
     public static selectOne(sql: string, values: {}): Promise<{}> {
         return new Promise<{}>((resolve, reject) => {
             TheDb.db.get(sql, values, (err, row) => {
@@ -49,7 +53,10 @@ export class TheDb {
     }
 
     public static insert(sql: string, values: {}): Promise<IDbResult> {
-        return TheDb.change(sql, values);
+      console.log(path.resolve(__dirname, "database/test.db"))
+        return TheDb.getDb(path.resolve(__dirname, "database/test.db")).then(() => 
+          TheDb.change(sql, values) 
+         );
     }
 
     public static update(sql: string, values: {}): Promise<IDbResult> {

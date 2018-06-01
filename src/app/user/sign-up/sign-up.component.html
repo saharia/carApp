@@ -27,14 +27,14 @@
         <div class="form-group form-group--centered">
           <label>Email</label>
           <input type="text" class="form-control validate" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="" required>
-          <i *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="form-group__bar"></i>
+          <i *ngIf="email.invalid && (email.dirty || email.touched)" class="form-group__bar"></i>
           <span *ngIf="email.invalid && (email.dirty || email.touched)" class="text-alert alert-error">Email is required!</span>
         </div>
 
         <div class="form-group form-group--centered">
           <label>Password</label>
           <input type="password" class="form-control validate" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="" required>
-          <i *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="form-group__bar"></i>
+          <i *ngIf="password.invalid && (password.dirty || password.touched)" class="form-group__bar"></i>
           <span *ngIf="password.invalid && (password.dirty || password.touched)" class="text-alert alert-error">Password is required!</span>
         </div>
 
