@@ -19,9 +19,9 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(event) {
-    const params = { first_name: this.user.firstName, email: this.user.email, password: this.user.password };
-     this.notifyObj.notify('bottom', 'left', '', 'danger', 'animated fadeInUp', 'animated fadeOutDown', 'Email already exists');
-     this.user.insert(params);
+    const params = [ this.user.firstName, this.user.email, this.user.password, 1, new Date() ];
+    this.notifyObj.notify('bottom', 'left', '', 'danger', 'animated fadeInUp', 'animated fadeOutDown', 'Email already exists');
+    this.user.insert(params);
   }
 
 }

@@ -53,8 +53,8 @@ export class TheDb {
     }
 
     public static insert(sql: string, values: {}): Promise<IDbResult> {
-      console.log(path.resolve(__dirname, "database/test.db"))
-        return TheDb.getDb(path.resolve(__dirname, "database/test.db")).then(() => 
+      //console.log(path.resolve(__dirname, "database/test.db"), path.resolve(__dirname, "database/test.db"))
+        return TheDb.getDb("./database/test.db").then(() => 
           TheDb.change(sql, values) 
          );
     }
@@ -301,6 +301,7 @@ export class TheDb {
     }
 
     private static change(sql: string, values: {}): Promise<IDbResult> {
+      //console.log(values, sql)
         return new Promise<IDbResult>((resolve, reject) => {
             TheDb.db.run(sql, values, function (err) {
                 if (err) {

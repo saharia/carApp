@@ -10,8 +10,8 @@ export class Users {
   }
 
   insert (params) {
-    console.log(params)
-    let sql = "INSERT INTO users (first_name, email, password) VALUES (?,?,?)";
+    //console.log(params)
+    let sql = "INSERT INTO users (first_name, email, password, is_active, created_at) VALUES (?,?,?,?,?)";
     TheDb.insert(sql, params);
     return true;
   }

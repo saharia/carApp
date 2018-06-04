@@ -1,10 +1,10 @@
 --User Table
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `username` VARCHAR(50) NOT NULL,
+  `username` VARCHAR(50) DEFAULT NULL,
   `password` VARCHAR(50) NOT NULL,
   `first_name` VARCHAR(50) NOT NULL,
-  `last_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) DEFAULT NULL,
   `gender` VARCHAR(10) DEFAULT NULL,
   `date_of_birth` VARCHAR(15) DEFAULT NULL,
   `email` VARCHAR(50) NOT NULL,
