@@ -25,10 +25,12 @@ export class TheDb {
     public static db;
 
     constructor () {
-      TheDb.db = TheDb.getDb("database/test");
+      //TheDb.db = TheDb.getDb("database/test");
     }
 
     public static selectOne(sql: string, values: {}): Promise<{}> {
+      //console.log(sql, values)
+      return TheDb.getDb("./database/test.db").then(() => {
         return new Promise<{}>((resolve, reject) => {
             TheDb.db.get(sql, values, (err, row) => {
                 if (err) {
@@ -37,7 +39,9 @@ export class TheDb {
                     resolve(row);
                 }
             });
+           
         });
+       });
     }
 
     public static selectAll(sql: string, values: {}): Promise<Array<{}>> {

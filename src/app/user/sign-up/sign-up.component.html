@@ -26,16 +26,18 @@
         </div>
         <div class="form-group form-group--centered">
           <label>Email</label>
-          <input type="text" class="form-control validate" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="" required>
+          <input type="email" class="form-control validate" name="email" #email="ngModel" [(ngModel)]="user.email" placeholder="" required [pattern]="emailPattern">
           <i *ngIf="email.invalid && (email.dirty || email.touched)" class="form-group__bar"></i>
-          <span *ngIf="email.invalid && (email.dirty || email.touched)" class="text-alert alert-error">Email is required!</span>
+          <span *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.required" class="text-alert alert-error">Email is required!</span>
+          <span *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.pattern" class="text-alert alert-error">Invalid email!</span>
         </div>
 
         <div class="form-group form-group--centered">
           <label>Password</label>
-          <input type="password" class="form-control validate" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="" required>
+          <input type="password" class="form-control validate" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="" required minlength="5">
           <i *ngIf="password.invalid && (password.dirty || password.touched)" class="form-group__bar"></i>
-          <span *ngIf="password.invalid && (password.dirty || password.touched)" class="text-alert alert-error">Password is required!</span>
+          <span *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.required" class="text-alert alert-error">Password is required!</span>
+          <span *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.minlength" class="text-alert alert-error">Minimum of 5 characters!</span>
         </div>
 
         <div class="form-group">

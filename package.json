@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@types/jquery": "^3.3.1",
+    "bcryptjs": "^2.4.3",
     "core-js": "^2.4.1",
     "electron-rebuild": "^1.7.3",
     "jquery": "^3.3.1",

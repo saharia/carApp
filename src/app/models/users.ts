@@ -1,4 +1,5 @@
 import { TheDb } from './db/thedb';
+var bcrypt = require('bcryptjs');
 
 export class Users {
   firstName: string;
@@ -9,11 +10,35 @@ export class Users {
 
   }
 
-  insert (params) {
+  insert (params): Promise<Array<{}>> {
     //console.log(params)
-    let sql = "INSERT INTO users (first_name, email, password, is_active, created_at) VALUES (?,?,?,?,?)";
-    TheDb.insert(sql, params);
-    return true;
+    return new Promise<Array<{}>>((resolve, reject) => {
+      const params1 = [ params.firstName, params.email, params.password, 1, new Date() ];
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(params.password, salt);
+      params1[2] = hash;
+      let sql = "INSERT INTO users (first_name, email, password, is_active, created_at) VALUES (?,?,?,?,?)";
+
+      //Email validation
+      TheDb.selectOne("SELECT * FROM users WHERE email = ? AND is_active = ?", [ params.email, 1 ]).then(
+        (result) => {
+          if (result) {
+            reject({ msg: "Email already exists!" });
+          } else {
+            TheDb.insert(sql, params1).then(
+              (result) => resolve([{ success: true, msg: "The new user registered succesfully" }]),
+              (error) => reject({ msg: "Internal server errro" })
+            ); 
+          }
+        },
+        (error) => {
+          console.log(error)
+          if (error) {
+            reject({ msg: "Internal server error!" });
+          }
+        }
+      );
+    });
   }
 
   update (params) {
@@ -42,7 +67,28 @@ export class Users {
   }
 
   checkLogin (params) {
-    let sql = "SELECT * FROM USERS WHERE is_active = 1 AND (email = '" + params.email + "' or username = '" + params.email + "') AND password";
-    return TheDb.db.run(sql);
+    let sql = "SELECT * FROM users WHERE is_active = 1 AND email = ?";
+    return new Promise<Array<{}>>((resolve, reject) => {
+      TheDb.selectOne(sql, [ params.email ]).then(
+        (result) => {
+          if (result) {
+            const validPassword = bcrypt.compareSync(params.password, result['password']);
+            if (validPassword) {
+              resolve([{ success: true, msg: "Login successfull", data: result }]);
+            } else {
+              reject({ msg: "Invalid login details!" });  
+            }
+          } else {
+            reject({ msg: "Invalid login details!" });
+          }
+        },
+        (error) => {
+          console.log(error)
+          if (error) {
+            reject({ msg: "Internal server error!" });
+          }
+        }
+      );
+    });
   }
 }

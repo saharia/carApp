@@ -2,7 +2,11 @@
     Bootstrap Notify Notifications
 ---------------------------------------*/
 class customJS { 
+  notifyBottomLeft (type, msg) {
+    this.notify('bottom', 'left', '', type, 'animated fadeInUp', 'animated fadeOutDown', msg);
+  }
   notify(from, align, icon, type, animIn, animOut, msg) {
+    $.notifyClose();
     $.notify({
       icon: icon,
       title: '',

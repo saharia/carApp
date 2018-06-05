@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Users } from '../../models/users';
+import { Router } from "@angular/router";
 declare var customJS: any;
 @Component({
   selector: 'app-sign-up',
@@ -8,8 +9,9 @@ declare var customJS: any;
 })
 export class SignUpComponent implements OnInit {
   public user: Users;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   notifyObj: any;
-  constructor() { 
+  constructor(private router: Router) { 
     this.notifyObj = new customJS();
     this.user = new Users();
   }
@@ -19,9 +21,19 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(event) {
-    const params = [ this.user.firstName, this.user.email, this.user.password, 1, new Date() ];
-    this.notifyObj.notify('bottom', 'left', '', 'danger', 'animated fadeInUp', 'animated fadeOutDown', 'Email already exists');
-    this.user.insert(params);
+    this.user.insert(this.user).then(
+      (result) => {
+        if(result[0] && result[0]['msg']) {
+          this.notifyObj.notifyBottomLeft('success', result[0]['msg']);
+          this.router.navigateByUrl('/login');
+        }
+      },
+      (error) => {
+        if (error.msg) {
+          this.notifyObj.notifyBottomLeft('danger', error.msg);
+        }
+      }
+    );
   }
 
 }
