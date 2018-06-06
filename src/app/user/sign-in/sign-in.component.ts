@@ -26,7 +26,7 @@ export class SignInComponent implements OnInit {
       (result) => {
         if(result[0] && result[0]['msg']) {
           this.notifyObj.notifyBottomLeft('success', result[0]['msg']);
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/admin/home');
         }
       },
       (error) => {

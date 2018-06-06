@@ -41,6 +41,25 @@ export class Users {
     });
   }
 
+  checkAuth (): Promise<Object> {
+    return new Promise<Object>((resolve, reject) => {
+      TheDb.selectOne("SELECT * FROM users WHERE is_login = 1 AND is_active = 1", []).then(
+        (result) => {
+          if (result) {
+            resolve({ success: true, msg: "Login exists", data: result });
+          } else {
+            reject({ msg: "Not a login" });
+          }
+        },
+        (error) => {
+          if (error) {
+            reject({ msg: "Internal server error!" });
+          }
+        }
+      );
+    });
+  }
+
   update (params) {
     let sql = "UPDATE USERS SET name = ?, age = ?, address = ? WHERE id = ?";
     return TheDb.update(sql, params);

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `contact_number` VARCHAR(15) DEFAULT NULL,
   `avatar` VARCHAR(50) DEFAULT NULL,
   `is_active` TINYINT(1) NOT NULL DEFAULT '0',
+  `is_login` TINYINT(1) NOT NULL DEFAULT '0',
   `created_at` DATETIME DEFAULT NULL,
   `updated_at` DATETIME DEFAULT NULL
 );

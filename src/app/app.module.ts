@@ -9,11 +9,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './admin/home/home.component';
 
 import { appRoutes } from './routes';
 
 import { TheDb } from './models/db/thedb';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginGuard } from './auth/login.guard';
+
+import { AuthService } from './auth/auth.service';
+import { HeaderComponent } from './admin/layout/header/header.component';
+import { FooterComponent } from './admin/layout/footer/footer.component';
+import { LayoutComponent } from './admin/layout/layout.component';
+import { LeftmenuComponent } from './admin/layout/leftmenu/leftmenu.component';
+import { ThemesComponent } from './admin/layout/themes/themes.component';
+import { AdminComponent } from './admin/admin.component';
 
 TheDb.createDb('database/test');
 
@@ -24,7 +34,13 @@ TheDb.createDb('database/test');
     UserComponent,
     SignInComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    LayoutComponent,
+    LeftmenuComponent,
+    ThemesComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +48,11 @@ TheDb.createDb('database/test');
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    LoginGuard,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
